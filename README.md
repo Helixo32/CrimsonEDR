@@ -49,6 +49,10 @@ To get started with CrimsonEDR, follow these steps:
    ./compile.sh
    ```
 
+## ⚠️ Warning
+
+Windows Defender and other antivirus programs may flag the DLL as malicious due to its content containing bytes used to verify if the AMSI has been patched. Please ensure to whitelist the DLL or disable your antivirus temporarily when using CrimsonEDR to avoid any interruptions.
+
 ## Usage
 
 To use CrimsonEDR, follow these steps:
