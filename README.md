@@ -53,7 +53,7 @@ To get started with CrimsonEDR, follow these steps:
 
 To use CrimsonEDR, follow these steps:
 
-1.  Make sure the `ioc.json` file is in the current directory. Currently, `ioc.json` contains patterns related to `msfvenom`. You can easily add your own in the following format:
+1.  Make sure the `ioc.json` file is placed in the current directory from which the executable being monitored is launched. For example, if you launch your executable to monitor from `C:\Users\matthias`, the DLL will look for `ioc.json` in `C:\Users\matthias\ioc.json`. Currently, `ioc.json` contains patterns related to `msfvenom`. You can easily add your own in the following format:
 ```
 {
   "IOC": [
