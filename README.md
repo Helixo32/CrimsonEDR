@@ -12,7 +12,7 @@
                                 https://github.com/Helixo32
 ```
 
-CrimsonEDR is an open-source project engineered to identify specific malware patterns, offering a tool for honing skills in circumventing Endpoint Detection and Response (EDR) systems. By leveraging diverse detection methods, it empowers users to deepen their understanding of security evasion tactics.
+CrimsonEDR is an open-source project engineered to identify specific malware patterns, offering a tool for honing skills in circumventing Endpoint Detection and Response (EDR). By leveraging diverse detection methods, it empowers users to deepen their understanding of security evasion tactics.
 
 ## Features
 
