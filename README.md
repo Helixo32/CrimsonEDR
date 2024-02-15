@@ -26,6 +26,7 @@ CrimsonEDR is an open-source project engineered to identify specific malware pat
 | Reflective PE Loading             | Detects the reflective loading of PE files, a technique employed by malware to avoid static analysis. |
 | Unbacked Thread Origin            | Identifies threads originating from unbacked memory regions, often indicative of malicious activity. |
 | Unbacked Thread Start Address     | Detects threads with start addresses pointing to unbacked memory, a potential sign of code injection. |
+| API hooking                       | Places a hook on the NtWriteVirtualMemory function to monitor memory modifications. |
 | Custom Pattern Search                      | Allows users to search for specific patterns provided in a JSON file, facilitating the identification of known malware signatures. |
 
 
