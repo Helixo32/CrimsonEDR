@@ -6,6 +6,9 @@
 #include <structure.h>
 #include <NtApi.h>
 
+#include "structure.h"
+#include "detection/searchIoc.h"
+
 
 
 #if defined(_WIN64)
@@ -184,6 +187,18 @@ BOOL UnhookedAPI(OUT PINFORMATION_DETECTION pInformationDetection) {
  */
 NTSTATUS NTAPI HookedNtWriteVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddress, PVOID Buffer, SIZE_T NumberOfBytesToWrite, PSIZE_T NumberOfBytesWritten) {
 
+    char                        fileName[MAX_PATH];
+    char                        fullPath[MAX_PATH];
+
+    GetExecutableName(fileName, MAX_PATH);
+    GetExecutablePath(fullPath, MAX_PATH);
+
+    INFORMATION_DETECTION       informationDetection        = { 0 };
+
+    informationDetection.image_name = fileName;
+    informationDetection.image_path = fullPath;
+    informationDetection.pid        = GetCurrentProcessId();
+
     if (!RemoveHook(&sHookNtWriteVirtualMemory)) {
         return "0x00000080";
     }
@@ -191,7 +206,10 @@ NTSTATUS NTAPI HookedNtWriteVirtualMemory(HANDLE ProcessHandle, PVOID BaseAddres
     pNtWriteVirtualMemory MyNtWriteVirtualMemory = (pNtWriteVirtualMemory)GetProcAddress(GetModuleHandle("ntdll.dll"), "NtWriteVirtualMemory");
     NTSTATUS status = MyNtWriteVirtualMemory(ProcessHandle, BaseAddress, Buffer, NumberOfBytesToWrite, NumberOfBytesWritten);
 
-    //SearchIoc();
+    if (SearchIOC(&informationDetection, BaseAddress, NumberOfBytesToWrite)) {
+        SendToPipe(&informationDetection);
+        TerminateProcess(GetCurrentProcess(), 0);
+    }
 
     if (!PlaceHook()) {
         MessageBoxA(0, "Failed to place hook on NtWriteVirtualMemory", "CrimsonEDR", 0);
